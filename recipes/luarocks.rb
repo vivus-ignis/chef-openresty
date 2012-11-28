@@ -25,7 +25,7 @@ bash "Compile luarocks" do
     make install
   EOH
 
-#  not_if { ::File.exists? "#{node['openresty']['install_prefix']}/openresty/nginx/sbin/nginx" }
+  not_if { ::File.exists? "#{node['openresty']['install_prefix']}/luarocks/bin/luarocks" }
 end
 
 
