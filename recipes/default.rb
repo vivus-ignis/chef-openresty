@@ -19,6 +19,7 @@ remote_file "openresty distribution, v. #{node['openresty']['version']}" do
 end
 
 execute "Unpack openresty distribution" do
+  cwd     Chef::Config[:file_cache_path]
   command "tar xzf #{Chef::Config[:file_cache_path]}/openresty-#{node['openresty']['version']}.tar.gz"
   
   not_if  { ::File.directory? "#{Chef::Config[:file_cache_path]}/ngx_openresty-#{node['openresty']['version']}" }
