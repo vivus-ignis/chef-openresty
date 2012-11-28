@@ -28,7 +28,8 @@ bash "Compile openresty" do
       --with-http_mp4_module \
       --with-debug \
       --with-http_ssl_module \
-      --with-http_stub_status_module
+      --with-http_stub_status_module \
+      --with-luajit
     make
     make install
   EOH
