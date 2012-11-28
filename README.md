@@ -1,4 +1,12 @@
-chef-openresty
-==============
+Description
+===========
 
-Install/configure openresty
+Requirements
+============
+
+Attributes
+==========
+
+Usage
+=====
+
