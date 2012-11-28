@@ -20,7 +20,7 @@ bash "Compile luarocks" do
     exec >  /var/tmp/chef-luarocks-compile.log
     exec 2> /var/tmp/chef-luarocks-compile.log
     ./configure --prefix=#{node['openresty']['install_prefix']}/luarocks \
-      --with-lua==#{node['openresty']['install_prefix']}/openresty/lua
+      --with-lua=#{node['openresty']['install_prefix']}/openresty/lua
     make
     make install
   EOH
