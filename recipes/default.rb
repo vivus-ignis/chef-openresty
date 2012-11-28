@@ -19,7 +19,6 @@ remote_file "openresty distribution, v. #{node['openresty']['version']}" do
 end
 
 execute "Unpack openresty distribution" do
-
   command "tar xzf #{Chef::Config[:file_cache_path]}/openresty-#{node['openresty']['version']}.tar.gz"
   
   not_if  { ::File.directory? "#{Chef::Config[:file_cache_path]}/ngx_openresty-#{node['openresty']['version']}" }
@@ -33,7 +32,7 @@ bash "Compile openresty" do
     exec >  /var/tmp/chef-openresty-compile.log
     exec 2> /var/tmp/chef-openresty-compile.log
     ./configure --prefix=#{node['openresty']['install_prefix']}/openresty \
-      --with-http-flv-module \
+      --with-http_flv_module \
       --with-http_mp4_module \
       --with-debug \
       --with-http_ssl_module \
