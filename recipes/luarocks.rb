@@ -1,3 +1,7 @@
+node['openresty']['luarocks_required_pkgs'].each do |r_pkg|
+  package r_pkg
+end
+
 remote_file "luarocks distribution, v. #{node['openresty']['luarocks_version']}" do
   path   "#{Chef::Config[:file_cache_path]}/luarocks-#{node['openresty']['luarocks_version']}.tar.gz"
   source "http://luarocks.org/releases/luarocks-#{node['openresty']['luarocks_version']}.tar.gz"
