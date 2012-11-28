@@ -32,4 +32,6 @@ bash "Compile openresty" do
     make
     make install
   EOH
+
+  not_if { ::File.exists? "=#{node['openresty']['install_prefix']}/openresty/nginx/sbin/nginx" }
 end
