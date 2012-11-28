@@ -27,7 +27,7 @@ end
 bash "Compile openresty" do
   cwd "#{Chef::Config[:file_cache_path]}/ngx_openresty-#{node['openresty']['version']}"
 
-  code<<-EOH
+  code <<-EOH
     set -x
     exec >  /var/tmp/chef-openresty-compile.log
     exec 2> /var/tmp/chef-openresty-compile.log
