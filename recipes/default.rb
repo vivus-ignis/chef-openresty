@@ -1,15 +1,6 @@
-#
-# Cookbook Name:: openresty
-# Recipe:: default
-#
-# Copyright 2012, YOUR_COMPANY_NAME
-#
-# All rights reserved - Do Not Redistribute
-#
-
-# TODO:
-# install devel packages: pcre, openssl
-#
+node['openresty']['required_pkgs'].each do |r_pkg|
+  package r_pkg
+end
 
 remote_file "openresty distribution, v. #{node['openresty']['version']}" do
   path   "#{Chef::Config[:file_cache_path]}/openresty-#{node['openresty']['version']}.tar.gz"
