@@ -35,3 +35,5 @@ bash "Compile openresty" do
 
   not_if { ::File.exists? "#{node['openresty']['install_prefix']}/openresty/nginx/sbin/nginx" }
 end
+
+include_recipe "openresty::luarocks"
