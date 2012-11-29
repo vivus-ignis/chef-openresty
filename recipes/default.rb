@@ -48,7 +48,7 @@ template "#{node['openresty']['config_dir']}openresty.conf" do
 end
 
 directory "/var/log/openresty" do
-  onwer "nobody"
+  owner "nobody"
   mode  "0755"
 end
 
