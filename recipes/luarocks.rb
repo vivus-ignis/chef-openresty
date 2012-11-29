@@ -23,13 +23,13 @@ bash "Compile luarocks" do
     set -x
     exec >  /var/tmp/chef-luarocks-compile.log
     exec 2> /var/tmp/chef-luarocks-compile.log
-    ./configure --prefix=#{node['openresty']['install_prefix']}/luarocks \
-      --with-lua=#{node['openresty']['install_prefix']}/openresty/lua
+    ./configure --with-lua-include=#{node['openresty']['install_prefix']}/openresty/luajit/include/luajit-2.0 \
+                --with-lua-lib=#{node['openresty']['install_prefix']}/openresty/luajit/lib
     make
     make install
   EOH
 
-  not_if { ::File.exists? "#{node['openresty']['install_prefix']}/luarocks/bin/luarocks" }
+  not_if { ::File.exists? "/usr/local/bin/luarocks" }
 end
 
 

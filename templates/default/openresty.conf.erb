@@ -1,0 +1,37 @@
+worker_processes <%= @workers %>;
+daemon off;
+user nobody;
+
+error_log /var/log/openresty/error.log debug;
+
+worker_rlimit_nofile 10240;
+
+events {
+  worker_connections 1024;
+}
+
+http {
+
+  server_tokens off;
+  
+  sendfile on;
+  keepalive_timeout 0;
+
+  #lua_package_path '/usr/local/rfs/?.lua;;';
+
+  ### catch-all
+  server {
+    server_name _;
+
+    location / {
+      empty_gif;
+    }
+    access_log off;
+  }
+
+  limit_zone tube $binary_remote_addr 10m;
+
+<% @vhosts.each do |vhost| %>
+  include <%= @config_dir %>/vhost.d/<%= @vhost %>;
+<% end %>
+}

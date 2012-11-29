@@ -37,4 +37,19 @@ bash "Compile openresty" do
   not_if { ::File.exists? "#{node['openresty']['install_prefix']}/openresty/nginx/sbin/nginx" }
 end
 
+template "#{node['openresty']['config_dir']}openresty.conf" do
+  source "openresty.conf.erb"
+  mode   "0644"
+  variables({
+    :workers    => node['openresty']['num_workers'],
+    :config_dir => node['openresty']['config_dir'],
+    :vhosts     => node['openresty']['vhosts']
+  })
+end
+
+directory "/var/log/openresty" do
+  onwer "nobody"
+  mode  "0755"
+end
+
 include_recipe "openresty::luarocks"
