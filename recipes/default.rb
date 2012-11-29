@@ -37,7 +37,12 @@ bash "Compile openresty" do
   not_if { ::File.exists? "#{node['openresty']['install_prefix']}/openresty/nginx/sbin/nginx" }
 end
 
-template "#{node['openresty']['config_dir']}openresty.conf" do
+directory "#{node['openresty']['config_dir']}/vhost.d" do
+  owner "nobody"
+  mode  "0755"
+end
+
+template "#{node['openresty']['config_dir']}/openresty.conf" do
   source "openresty.conf.erb"
   mode   "0644"
   variables({

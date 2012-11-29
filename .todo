@@ -3,4 +3,7 @@
     <note priority="medium" time="1354107511">
         luarocks LWRP
     </note>
+    <note priority="medium" time="1354196460">
+        configurable nginx user
+    </note>
 </todo>
