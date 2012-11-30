@@ -22,10 +22,11 @@ default['openresty']['third_party_modules'] = {
   }
 }
 
+# "--with-http_mp4_module",
+
 default['openresty']['configure_opts'] = [
                                           "--prefix=#{node['openresty']['install_prefix']}/openresty",
                                           "--with-http_flv_module",
-                                          "--with-http_mp4_module",
                                           "--with-debug",
                                           "--with-http_ssl_module",
                                           "--with-http_stub_status_module",
