@@ -16,6 +16,26 @@ execute "Unpack openresty distribution" do
   not_if  { ::File.directory? "#{Chef::Config[:file_cache_path]}/ngx_openresty-#{node['openresty']['version']}" }
 end
 
+node['openresty']['third_party_modules'].each do |mod_name, mod_params|
+  if mod_params['source']
+    remote_file "nginx 3rd-party module: #{mod_name}" do
+      path   "#{Chef::Config[:file_cache_path]}/#{::File.basename mod_params['source_url']}"
+      source mod_params['source']
+      
+      not_if { ::File.exists? "#{Chef::Config[:file_cache_path]}/#{::File.basename mod_params['source_url']}" }
+    end
+
+    execute "Unpack #{mod_name} distribution" do
+      cwd     Chef::Config[:file_cache_path]
+      command "tar xzf #{Chef::Config[:file_cache_path]}/#{::File.basename mod_params['source_url']}"
+      
+      not_if  { ::File.directory? "#{Chef::Config[:file_cache_path]}/#{mod_params['source_dir']}" }
+    end
+
+    node['openresty']['configure_opts'].push "--add-module=#{Chef::Config[:file_cache_path]}/#{mod_params['source_dir']}"
+  end
+end
+
 bash "Compile openresty" do
   cwd "#{Chef::Config[:file_cache_path]}/ngx_openresty-#{node['openresty']['version']}"
 
@@ -23,13 +43,7 @@ bash "Compile openresty" do
     set -x
     exec >  /var/tmp/chef-openresty-compile.log
     exec 2> /var/tmp/chef-openresty-compile.log
-    ./configure --prefix=#{node['openresty']['install_prefix']}/openresty \
-      --with-http_flv_module \
-      --with-http_mp4_module \
-      --with-debug \
-      --with-http_ssl_module \
-      --with-http_stub_status_module \
-      --with-luajit
+    ./configure #{node['openresty']['configure_opts']}.join(" ")
     make
     make install
   EOH
@@ -57,4 +71,4 @@ directory "/var/log/openresty" do
   mode  "0755"
 end
 
-include_recipe "openresty::luarocks"
+#include_recipe "openresty::luarocks"
