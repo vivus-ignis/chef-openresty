@@ -24,8 +24,8 @@ my_ips.each do |ipaddr|
   end
 end
 
-Chef::Log.debug("// openresty : my_ips    = #{p my_ips}")
-Chef::Log.debug("// openresty : my_vhosts = #{p my_vhosts}")
+Chef::Log.debug("// openresty : my_ips         = #{p my_ips}")
+Chef::Log.debug("// openresty : my_vhost_names = #{p my_vhost_names}")
 
 template "#{node['openresty']['config_dir']}/nginx.conf" do
   source "nginx.conf.erb"
