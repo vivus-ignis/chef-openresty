@@ -1,0 +1,34 @@
+log_format download "$time_local|$server_name|$remote_addr|$status|$request_uri";
+
+server {
+        listen 80;
+        server_name <%= @vhost_name %>;
+
+        access_log /var/log/openresty/download_access.log download;
+        error_log  /var/log/openresty/download_error.log  notice;
+
+        location / {
+                rewrite_by_lua_file '/opt/rs/handler.lua';
+         }
+
+        location /d {
+                internal;
+
+                alias /data;
+
+                mp4;
+
+                limit_conn tube 5;
+                limit_rate 1250k;
+        }       
+
+        location = /crossdomain.xml {
+                root /data;
+                access_log off;
+        }
+
+        location = /favicon.ico {
+                empty_gif;
+                access_log off;
+        }
+}
