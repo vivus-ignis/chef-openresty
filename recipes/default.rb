@@ -1,5 +1,3 @@
-require 'yaml'
-
 node['openresty']['required_pkgs'].each do |r_pkg|
   package r_pkg
 end
@@ -19,7 +17,7 @@ execute "Unpack openresty distribution" do
 end
 
 
-Chef::Log.debug("// openresty: 3rd-party modules configuration: #{y node['openresty']['third_party_modules']}")
+Chef::Log.debug("// openresty: 3rd-party modules configuration: #{node['openresty']['third_party_modules'].inspect}")
 
 node['openresty']['third_party_modules'].each do |mod_name, mod_params|
   if mod_params['source']
