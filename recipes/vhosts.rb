@@ -33,9 +33,10 @@ template "#{node['openresty']['config_dir']}/nginx.conf" do
   variables({
               :workers    => node['openresty']['num_workers'],
               :config_dir => node['openresty']['config_dir'],
-              :vhosts     => data_bag(my_vhosts)
             })
 end
+# :vhosts     => my_vhosts
+
 
 my_vhosts.each do |vhost|
   template "#{node['openresty']['config_dir']}/vhost.d/#{vhost['name']}.conf" do
