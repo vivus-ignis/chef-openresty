@@ -17,8 +17,8 @@ end
 
 default['openresty']['third_party_modules'] = {
   "nginx_mod_h264_streaming" => {
-    "source_url" => "http://h264.code-shop.com/download/nginx_mod_h264_streaming-2.2.7.tar.gz",
-    "source_dir" => "nginx_mod_h264_streaming-2.2.7"
+    "source_url" => "https://github.com/vivus-ignis/nginx_mod_h264_streaming/archive/master.zip",
+    "source_dir" => "nginx_mod_h264_streaming-master"
   }
 }
 

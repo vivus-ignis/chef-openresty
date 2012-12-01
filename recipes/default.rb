@@ -31,9 +31,19 @@ node['openresty']['third_party_modules'].each do |mod_name, mod_params|
       not_if { ::File.exists? "#{Chef::Config[:file_cache_path]}/#{::File.basename mod_params['source_url']}" }
     end
 
+    f_ext = ::File.basename(mod_params['source_url']).scan(/\.(zip|tar|gz|xz|bz2)/).join('.')
+
+    extract_command = case f_ext
+                      when "zip"
+                        "unzip"
+                      when "tar.gz"
+                        "tar xzf"
+                      end
+      
+
     execute "Unpack #{mod_name} distribution" do
       cwd     Chef::Config[:file_cache_path]
-      command "tar xzf #{Chef::Config[:file_cache_path]}/#{::File.basename mod_params['source_url']}"
+      command "#{extract_command} #{Chef::Config[:file_cache_path]}/#{::File.basename mod_params['source_url']}"
       
       not_if  { ::File.directory? "#{Chef::Config[:file_cache_path]}/#{mod_params['source_dir']}" }
     end
