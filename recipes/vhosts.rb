@@ -27,24 +27,28 @@ end
 Chef::Log.debug("// openresty : my_ips    = #{p my_ips}")
 Chef::Log.debug("// openresty : my_vhosts = #{p my_vhosts}")
 
-template "#{node['openresty']['config_dir']}/nginx.conf" do
-  source "nginx.conf.erb"
-  mode   "0644"
-  variables({
-              :workers    => node['openresty']['num_workers'],
-              :config_dir => node['openresty']['config_dir'],
-            })
-end
-# :vhosts     => my_vhosts
+# template "#{node['openresty']['config_dir']}/nginx.conf" do
+#   source "nginx.conf.erb"
+#   mode   "0644"
+#   variables({
+#               :workers    => node['openresty']['num_workers'],
+#               :config_dir => node['openresty']['config_dir'],
+#               :vhosts     => my_vhosts
+#             })
+# end
 
+my_ips.each do |ipaddr|
 
-my_vhosts.each do |vhost|
-  template "#{node['openresty']['config_dir']}/vhost.d/#{vhost['name']}.conf" do
-    source "vhost.conf.erb"
-    mode   "0644"
-    variables({
-                :name          => vhost['name'],
-                :document_root => vhost['document_root']
-              })
+  search(:vhosts, "ip_address:#{ipaddr}").each do |vhost|
+    #my_vhosts.each do |vhost|
+    template "#{node['openresty']['config_dir']}/vhost.d/#{vhost['name']}.conf" do
+      source "vhost.conf.erb"
+      mode   "0644"
+      variables({
+                  :name          => vhost['name'],
+                  :document_root => vhost['document_root']
+                })
+    end
   end
+
 end
