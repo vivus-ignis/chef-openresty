@@ -15,6 +15,8 @@ when "centos", "amazon"
   set['openresty']['luarocks_required_pkgs'] = %w{ unzip }
 end
 
+default['openresty']['third_party_modules'] = {}
+
 # default['openresty']['third_party_modules'] = {
 #   "nginx_mod_h264_streaming" => {
 #     "source_url" => "https://github.com/vivus-ignis/nginx_mod_h264_streaming/archive/master.zip",
