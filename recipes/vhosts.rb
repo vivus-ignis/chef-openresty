@@ -40,7 +40,6 @@ end
 my_ips.each do |ipaddr|
 
   search(:vhosts, "ip_address:#{ipaddr}").each do |vhost|
-    #my_vhosts.each do |vhost|
     template "#{node['openresty']['config_dir']}/vhost.d/#{vhost['name']}.conf" do
       source "vhost.conf.erb"
       mode   "0644"

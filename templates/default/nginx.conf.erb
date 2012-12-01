@@ -2,7 +2,7 @@ worker_processes <%= @workers %>;
 daemon off;
 user nobody;
 
-error_log /var/log/openresty/error.log debug;
+error_log /var/log/openresty/error.log notice;
 
 worker_rlimit_nofile 10240;
 
