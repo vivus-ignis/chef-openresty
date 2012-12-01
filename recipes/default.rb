@@ -1,3 +1,5 @@
+require 'yaml'
+
 node['openresty']['required_pkgs'].each do |r_pkg|
   package r_pkg
 end
@@ -15,6 +17,9 @@ execute "Unpack openresty distribution" do
   
   not_if  { ::File.directory? "#{Chef::Config[:file_cache_path]}/ngx_openresty-#{node['openresty']['version']}" }
 end
+
+
+Chef::Log.debug("// openresty: 3rd-party modules configuration: #{y node['openresty']['third_party_modules']}")
 
 node['openresty']['third_party_modules'].each do |mod_name, mod_params|
   if mod_params['source']
