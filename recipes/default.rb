@@ -18,6 +18,9 @@ end
 
 node['openresty']['third_party_modules'].each do |mod_name, mod_params|
   if mod_params['source']
+
+    Chef::Log.debug("// openresty : going to prepare 3rd-party module #{mod_name}")
+
     remote_file "nginx 3rd-party module: #{mod_name}" do
       path   "#{Chef::Config[:file_cache_path]}/#{::File.basename mod_params['source_url']}"
       source mod_params['source']
@@ -43,7 +46,7 @@ bash "Compile openresty" do
     set -x
     exec >  /var/tmp/chef-openresty-compile.log
     exec 2> /var/tmp/chef-openresty-compile.log
-    ./configure #{node['openresty']['configure_opts']}.join(" ")
+    ./configure #{node['openresty']['configure_opts'].join(" ")}
     make
     make install
   EOH
