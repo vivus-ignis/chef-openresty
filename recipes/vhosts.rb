@@ -27,15 +27,15 @@ end
 Chef::Log.debug("// openresty : my_ips    = #{p my_ips}")
 Chef::Log.debug("// openresty : my_vhosts = #{p my_vhosts}")
 
-# template "#{node['openresty']['config_dir']}/nginx.conf" do
-#   source "nginx.conf.erb"
-#   mode   "0644"
-#   variables({
-#               :workers    => node['openresty']['num_workers'],
-#               :config_dir => node['openresty']['config_dir'],
-#               :vhosts     => my_vhosts
-#             })
-# end
+template "#{node['openresty']['config_dir']}/nginx.conf" do
+  source "nginx.conf.erb"
+  mode   "0644"
+  variables({
+              :workers    => node['openresty']['num_workers'],
+              :config_dir => node['openresty']['config_dir'],
+              :vhosts     => my_vhosts
+            })
+end
 
 my_ips.each do |ipaddr|
 
