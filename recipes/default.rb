@@ -16,7 +16,7 @@ execute "Unpack openresty distribution" do
   not_if  { ::File.directory? "#{Chef::Config[:file_cache_path]}/ngx_openresty-#{node['openresty']['version']}" }
 end
 
-include_recipe "openresty::third_party_modules.rb"
+include_recipe "openresty::third_party_modules"
 
 bash "Compile openresty" do
   cwd "#{Chef::Config[:file_cache_path]}/ngx_openresty-#{node['openresty']['version']}"
