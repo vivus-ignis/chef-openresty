@@ -16,11 +16,11 @@ end
 
 my_ips.delete "127.0.0.1"
 
-my_vhosts = []
+my_vhost_names = []
 
 my_ips.each do |ipaddr|
   search(:vhosts, "ip_address:#{ipaddr}").each do |vhost|
-    my_vhosts.push vhost
+    my_vhost_names.push vhost['name']
   end
 end
 
@@ -31,9 +31,9 @@ template "#{node['openresty']['config_dir']}/nginx.conf" do
   source "nginx.conf.erb"
   mode   "0644"
   variables({
-              :workers    => node['openresty']['num_workers'],
-              :config_dir => node['openresty']['config_dir'],
-              :vhosts     => my_vhosts
+              :workers     => node['openresty']['num_workers'],
+              :config_dir  => node['openresty']['config_dir'],
+              :vhost_names => my_vhost_names
             })
 end
 
