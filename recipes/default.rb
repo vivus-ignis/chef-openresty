@@ -39,7 +39,9 @@ directory "/var/log/openresty" do
 end
 
 runit_service "openresty" do
+  action :disable
   default_logger true
+
   options({
             :nginx_bin  => "#{node['openresty']['install_prefix']}/openresty/nginx/sbin/nginx"
           })
