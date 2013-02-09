@@ -30,8 +30,4 @@ http {
   }
 
   limit_zone tube $binary_remote_addr 10m;
-
-<% @vhost_names.each do |name| %>
-  include <%= @config_dir %>/vhost.d/<%= name %>.conf;
-<% end %>
 }
