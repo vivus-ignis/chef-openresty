@@ -33,10 +33,16 @@ bash "Compile openresty" do
   not_if { ::File.exists? "#{node['openresty']['install_prefix']}/openresty/nginx/sbin/nginx" }
 end
 
-
 directory "/var/log/openresty" do
   owner "nobody"
   mode  "0755"
+end
+
+runit_service "openresty" do
+  default_logger true
+  options({
+            :nginx_bin  => "#{node['openresty']['install_prefix']}/nginx/sbin/nginx"
+          })
 end
 
 include_recipe "openresty::luarocks"
