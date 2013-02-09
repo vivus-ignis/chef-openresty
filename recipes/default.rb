@@ -41,7 +41,7 @@ end
 runit_service "openresty" do
   default_logger true
   options({
-            :nginx_bin  => "#{node['openresty']['install_prefix']}/nginx/sbin/nginx"
+            :nginx_bin  => "#{node['openresty']['install_prefix']}/openresty/nginx/sbin/nginx"
           })
 end
 
