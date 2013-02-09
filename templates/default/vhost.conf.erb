@@ -31,4 +31,8 @@ server {
                 empty_gif;
                 access_log off;
         }
+
+	<% @vhosts.each do |vhost| %>
+	include /opt/openresty/nginx/conf/vhost.d/<%= vhost %>.conf;
+	<% end %>
 }
