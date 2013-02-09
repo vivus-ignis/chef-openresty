@@ -39,5 +39,4 @@ directory "/var/log/openresty" do
   mode  "0755"
 end
 
-include_recipe "openresty::vhosts"
 include_recipe "openresty::luarocks"
