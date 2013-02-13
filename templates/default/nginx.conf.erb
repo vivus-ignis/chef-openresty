@@ -29,7 +29,7 @@ http {
     access_log off;
   }
 
-  limit_conn_zone tube $binary_remote_addr 10m;
+  limit_conn_zone $binary_remote_addr zone=tube:10m;
 
   log_format download "$time_local|$server_name|$remote_addr|$status|$request_uri";
 
