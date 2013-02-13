@@ -39,7 +39,7 @@ directory "/var/log/openresty" do
 end
 
 template "#{node['openresty']['install_prefix']}/openresty/nginx/conf/nginx.conf" do
-  template "nginx.conf.erb"
+  source "nginx.conf.erb"
   variables({
               :workers => node['cpu'] && node['cpu']['total'] ? node['cpu']['total'] : 1
             })
