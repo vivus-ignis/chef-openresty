@@ -1,6 +1,7 @@
 default['openresty']['version'] = '1.2.3.8'
 default['openresty']['install_prefix'] = '/opt'
 default['openresty']['config_dir'] = "#{node['openresty']['install_prefix']}/openresty/nginx/conf"
+default['openresty']['vhost_dir']  = "#{node['openresty']['install_prefix']}/openresty/nginx/conf/vhost.d"
 
 default['openresty']['vhosts'] = {}
 
