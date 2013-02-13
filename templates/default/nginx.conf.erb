@@ -31,5 +31,7 @@ http {
 
   #limit_zone tube $binary_remote_addr 10m;
 
+  log_format download "$time_local|$server_name|$remote_addr|$status|$request_uri";
+
   include vhost.d/*.conf;
 }
