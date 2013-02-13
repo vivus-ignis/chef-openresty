@@ -1,6 +1,6 @@
 action :create do
 
-  config_name = new_resource.name.tr('^a-z', '_') + ".conf"
+  config_name = new_resource.name.tr('^a-z0-9-', '_') + ".conf"
 
   template    "#{node['openresty']['vhost_dir']}/#{config_name}" do
     source    new_resource.template
@@ -13,7 +13,7 @@ end
 
 action :delete do
 
-  config_name = new_resource.name.tr('^a-z', '_') + ".conf"
+  config_name = new_resource.name.tr('^a-z0-9-', '_') + ".conf"
 
   file "#{node['openresty']['vhost_dir']}/#{config_name}" do
     action :delete
