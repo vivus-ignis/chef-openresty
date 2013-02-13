@@ -1,6 +1,8 @@
 action :create do
 
-  template    "#{node['openresty']['vhost_dir']}/#{new_resource.name}.conf" do
+  config_name = new_resource.tr('^a-z', '_') + ".conf"
+
+  template    "#{node['openresty']['vhost_dir']}/#{config_name}" do
     source    new_resource.template
     variables new_resource.options
     mode      0644
@@ -11,7 +13,9 @@ end
 
 action :delete do
 
-  file "#{node['openresty']['vhost_dir']}/#{new_resource.name}.conf" do
+  config_name = new_resource.tr('^a-z', '_') + ".conf"
+
+  file "#{node['openresty']['vhost_dir']}/#{config_name}" do
     action :delete
   end
 
