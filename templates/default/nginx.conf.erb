@@ -30,4 +30,6 @@ http {
   }
 
   limit_zone tube $binary_remote_addr 10m;
+
+  include vhost.d/*.conf;
 }

@@ -38,13 +38,12 @@ directory "/var/log/openresty" do
   mode  "0755"
 end
 
-runit_service "openresty" do
-  action :disable
-  default_logger true
-
-  options({
-            :nginx_bin  => "#{node['openresty']['install_prefix']}/openresty/nginx/sbin/nginx"
-          })
+template "#{node['openresty']['install_prefix']}/openresty/nginx/conf/nginx.conf" do
+  template "nginx.conf.erb"
+  variables({
+              :workers => node['cpu'] && node['cpu']['total'] ? node['cpu']['total'] : 1
+            })
+  mode     0644
 end
 
 include_recipe "openresty::luarocks"
