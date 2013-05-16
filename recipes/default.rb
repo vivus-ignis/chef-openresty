@@ -46,4 +46,6 @@ template "#{node['openresty']['install_prefix']}/openresty/nginx/conf/nginx.conf
   mode     0644
 end
 
+directory "#{node['openresty']['install_prefix']}/openresty/nginx/conf/vhost.d"
+
 include_recipe "openresty::luarocks"
