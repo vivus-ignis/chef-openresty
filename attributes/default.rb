@@ -14,6 +14,8 @@ case platform
 when "centos", "amazon"
   set['openresty']['required_pkgs'] = %w{ readline-devel pcre-devel openssl-devel }
   set['openresty']['luarocks_required_pkgs'] = %w{ unzip }
+else
+  raise "Unsupported platform"
 end
 
 default['openresty']['third_party_modules'] = {}
