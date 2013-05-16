@@ -12,8 +12,8 @@ default['openresty']['num_workers'] = 64
 
 case platform
 when "centos", "amazon"
-  set['openresty']['required_pkgs'] = %w{ readline-devel pcre-devel openssl-devel }
-  set['openresty']['luarocks_required_pkgs'] = %w{ unzip }
+  default['openresty']['required_pkgs'] = %w{ readline-devel pcre-devel openssl-devel }
+  default['openresty']['luarocks_required_pkgs'] = %w{ unzip }
 else
   raise "Unsupported platform"
 end
