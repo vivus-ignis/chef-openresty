@@ -1,0 +1,5 @@
+#!/bin/sh
+
+mkdir -p /var/log/openresty
+exec /usr/local/bin/chpst svlogd -tt /var/log/openresty
+
