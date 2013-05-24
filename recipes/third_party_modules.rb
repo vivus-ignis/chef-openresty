@@ -31,6 +31,6 @@ node['openresty']['third_party_modules'].each do |mod_name, mod_params|
       not_if  { ::File.directory? "#{Chef::Config[:file_cache_path]}/#{mod_params['source_dir']}" }
     end
 
-    configure_opts.push "--add-module=#{Chef::Config[:file_cache_path]}/#{mod_params['source_dir']}"
+    configure_opts + " --add-module=#{Chef::Config[:file_cache_path]}/#{mod_params['source_dir']}"
   end
 end
