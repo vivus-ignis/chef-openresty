@@ -1,7 +1,5 @@
 Chef::Log.debug("// openresty: 3rd-party modules configuration: #{node['openresty']['third_party_modules'].inspect}")
 
-configure_opts = "#{node['openresty']['configure_opts']}"
-
 node['openresty']['third_party_modules'].each do |mod_name, mod_params|
   if mod_params['source_url']
 
@@ -31,6 +29,6 @@ node['openresty']['third_party_modules'].each do |mod_name, mod_params|
       not_if  { ::File.directory? "#{Chef::Config[:file_cache_path]}/#{mod_params['source_dir']}" }
     end
 
-    configure_opts + " --add-module=#{Chef::Config[:file_cache_path]}/#{mod_params['source_dir']}"
+    set['openresty']['configure_opts'].push "--add-module=#{Chef::Config[:file_cache_path]}/#{mod_params['source_dir']}"
   end
 end
