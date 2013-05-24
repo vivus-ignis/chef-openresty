@@ -18,7 +18,7 @@ else
   raise "Unsupported platform"
 end
 
-default['openresty']['third_party_modules'] = {}
+#default['openresty']['third_party_modules'] = {}
 
 default['openresty']['third_party_modules'] = {
   "nginx_mod_h264_streaming" => {
